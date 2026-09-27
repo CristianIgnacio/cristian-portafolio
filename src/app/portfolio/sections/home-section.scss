@@ -1,0 +1,102 @@
+:host {
+  display: block;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  align-items: center;
+  gap: 5rem;
+  min-height: 640px;
+  padding-block: 5.5rem;
+}
+h1 {
+  line-height: 1.08;
+  max-width: 10ch;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+.hero-role {
+  max-width: 30ch;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.hero-description {
+  max-width: 52ch;
+  margin-top: 1.1rem;
+  color: var(--muted);
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0;
+  margin-top: 1rem;
+  list-style: none;
+  font-size: 0.85rem;
+}
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.social-links img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.social-links img[src$='github.svg'] {
+  filter: brightness(0) invert(1);
+}
+.social-links a:hover {
+  color: var(--accent);
+}
+.hero-visual {
+  text-align: center;
+}
+.location {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 1.5rem;
+}
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+.availability span {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+}
+@media (max-width: 800px) {
+  .hero {
+    gap: 2rem;
+    padding-block: 4rem;
+  }
+}
+@media (max-width: 640px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-block: 3.5rem;
+  }
+  h1 {
+    max-width: 12ch;
+  }
+  .hero-visual {
+    width: 100%;
+  }
+}

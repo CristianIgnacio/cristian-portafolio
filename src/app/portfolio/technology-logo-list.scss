@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+.technology-logo-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+.technology-logo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.technology-logo-list img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.technology-logo-list img[src$='express.svg'],
+.technology-logo-list img[src$='vercel.svg'] {
+  filter: brightness(0) invert(1);
+}
+.technology-logo-list img[src$='mongoose.svg'] {
+  filter: brightness(1.8);
+}

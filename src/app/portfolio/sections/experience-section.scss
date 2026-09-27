@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+.timeline {
+  list-style: none;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--border);
+  margin-left: 0.35rem;
+}
+.timeline-item {
+  position: relative;
+  padding-bottom: 3.5rem;
+}
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.86rem;
+  top: 0.4rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--background);
+}
+article {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  gap: 3rem;
+}
+h3 {
+  color: var(--accent);
+}
+.role {
+  margin-top: 0.6rem;
+  font-weight: 500;
+}
+.team,
+.dates {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+.contributions > ul:first-child {
+  padding-left: 1.15rem;
+  color: var(--muted);
+}
+.contributions > ul:first-child li + li {
+  margin-top: 0.6rem;
+}
+app-technology-logo-list {
+  margin-top: 1.25rem;
+}
+@media (max-width: 700px) {
+  article {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .timeline-item {
+    padding-bottom: 2.5rem;
+  }
+}
