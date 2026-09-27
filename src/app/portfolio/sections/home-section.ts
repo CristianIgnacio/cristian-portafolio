@@ -15,9 +15,27 @@ import { ProfileVisual } from '../profile-visual';
         <p class="hero-role">{{ profile().role }}</p>
         <p class="hero-description">{{ profile().introduction }}</p>
         <div class="hero-actions">
-          <a class="button button-primary" [href]="'mailto:' + profile().email"
-            >Contáctame <span aria-hidden="true">↗</span></a
+          <a
+            class="button button-primary"
+            href="/files/CV_Cristian_Fuentes_Gutierrez.pdf"
+            download="CV_Cristian_Fuentes_Gutierrez.pdf"
+            aria-label="Descargar CV en PDF"
           >
+            Descargar CV
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M12 15V3" />
+            </svg>
+          </a>
           <a class="button" href="#proyectos"
             >Ver proyectos
             <svg

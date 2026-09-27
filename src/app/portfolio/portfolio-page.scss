@@ -22,6 +22,9 @@
 .brand span {
   color: var(--accent);
 }
+nav {
+  margin-inline: auto;
+}
 nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -40,10 +43,6 @@ nav a {
 }
 nav a:hover {
   color: var(--accent);
-}
-.header-contact {
-  font-size: 0.9rem;
-  text-decoration: none;
 }
 .skip-link {
   position: fixed;
