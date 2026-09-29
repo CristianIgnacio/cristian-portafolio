@@ -23,8 +23,8 @@
   border: 1px solid var(--border);
   border-radius: 0.5rem;
 }
-.project-cover img {
-  object-fit: contain;
+.project-cover.project-cover-gallery {
+  aspect-ratio: auto;
 }
 .project-lettering {
   display: flex;

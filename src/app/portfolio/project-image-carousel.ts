@@ -1,75 +1,82 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, linkedSignal } from '@angular/core';
 import { PortfolioImage } from './portfolio.models';
 
 @Component({
   selector: 'app-project-image-carousel',
   imports: [NgOptimizedImage],
+  templateUrl: './project-image-carousel.html',
   styleUrl: './project-image-carousel.scss',
-  template: `
-    <div class="carousel" role="region" [attr.aria-label]="'Imágenes de ' + projectName()">
-      <img
-        [ngSrc]="currentImage().src"
-        [alt]="currentImage().alt"
-        fill
-        sizes="(max-width: 700px) 90vw, 45vw"
-      />
-      <button
-        type="button"
-        class="carousel-arrow carousel-previous"
-        [attr.aria-label]="'Imagen anterior de ' + projectName()"
-        (click)="previous()"
-      >
-        <span aria-hidden="true">‹</span>
-      </button>
-      <button
-        type="button"
-        class="carousel-arrow carousel-next"
-        [attr.aria-label]="'Imagen siguiente de ' + projectName()"
-        (click)="next()"
-      >
-        <span aria-hidden="true">›</span>
-      </button>
-      <div
-        class="carousel-dots"
-        role="group"
-        [attr.aria-label]="'Elegir imagen de ' + projectName()"
-      >
-        @for (image of images(); track image.src; let index = $index) {
-          <button
-            type="button"
-            class="carousel-dot-button"
-            [attr.aria-label]="
-              'Mostrar imagen ' + (index + 1) + ' de ' + images().length + ' de ' + projectName()
-            "
-            [attr.aria-current]="currentIndex() === index ? 'true' : null"
-            (click)="goTo(index)"
-          >
-            <span class="carousel-dot" aria-hidden="true"></span>
-          </button>
-        }
-      </div>
-      <span class="carousel-status" aria-live="polite" aria-atomic="true">
-        Imagen {{ currentIndex() + 1 }} de {{ images().length }}
-      </span>
-    </div>
-  `,
+  host: { '(keydown)': 'onKeydown($event)' },
 })
 export class ProjectImageCarousel {
   readonly images = input.required<readonly [PortfolioImage, ...PortfolioImage[]]>();
   readonly projectName = input.required<string>();
-  readonly currentIndex = signal(0);
-  readonly currentImage = computed(() => this.images()[this.currentIndex()] ?? this.images()[0]);
+  readonly currentIndex = linkedSignal({ source: this.images, computation: () => 0 });
+  readonly currentImage = computed(() => this.images()[this.currentIndex()]);
+  readonly hasMultipleImages = computed(() => this.images().length > 1);
+
+  private pointerStart: { id: number; x: number; y: number } | undefined;
 
   previous(): void {
-    this.currentIndex.update((index) => (index - 1 + this.images().length) % this.images().length);
+    this.goTo(this.currentIndex() - 1);
   }
 
   next(): void {
-    this.currentIndex.update((index) => (index + 1) % this.images().length);
+    this.goTo(this.currentIndex() + 1);
   }
 
   goTo(index: number): void {
-    this.currentIndex.set(index);
+    const length = this.images().length;
+    this.currentIndex.set(((index % length) + length) % length);
+  }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (event.altKey || event.ctrlKey || event.metaKey || !this.hasMultipleImages()) return;
+
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.previous();
+        break;
+      case 'ArrowRight':
+        this.next();
+        break;
+      case 'Home':
+        this.goTo(0);
+        break;
+      case 'End':
+        this.goTo(this.images().length - 1);
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+  }
+
+  onPointerDown(event: PointerEvent): void {
+    this.pointerStart =
+      event.isPrimary && event.button === 0
+        ? { id: event.pointerId, x: event.clientX, y: event.clientY }
+        : undefined;
+  }
+
+  onPointerUp(event: PointerEvent): void {
+    const start = this.pointerStart;
+    this.pointerStart = undefined;
+    if (!start || start.id !== event.pointerId) return;
+
+    const distanceX = event.clientX - start.x;
+    const distanceY = event.clientY - start.y;
+    if (
+      this.hasMultipleImages() &&
+      Math.abs(distanceX) > 40 &&
+      Math.abs(distanceX) > Math.abs(distanceY) * 1.5
+    ) {
+      distanceX < 0 ? this.next() : this.previous();
+    }
+  }
+
+  cancelGesture(): void {
+    this.pointerStart = undefined;
   }
 }

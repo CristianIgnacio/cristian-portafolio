@@ -1,12 +1,11 @@
 import { Component, input } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { Project } from '../portfolio.models';
 import { TechnologyLogoList } from '../technology-logo-list';
 import { ProjectImageCarousel } from '../project-image-carousel';
 
 @Component({
   selector: 'app-projects-section',
-  imports: [NgOptimizedImage, TechnologyLogoList, ProjectImageCarousel],
+  imports: [TechnologyLogoList, ProjectImageCarousel],
   styleUrl: './projects-section.scss',
   template: `
     <section class="section" id="proyectos" aria-labelledby="proyectos-titulo" tabindex="-1">
@@ -18,16 +17,14 @@ import { ProjectImageCarousel } from '../project-image-carousel';
       <div class="projects-list">
         @for (project of projects(); track project.id; let index = $index) {
           <article class="project" [attr.aria-labelledby]="'proyecto-' + project.id">
-            <div class="project-cover">
+            <div
+              class="project-cover"
+              [class.project-cover-gallery]="project.images || project.image"
+            >
               @if (project.images; as images) {
                 <app-project-image-carousel [images]="images" [projectName]="project.name" />
               } @else if (project.image; as image) {
-                <img
-                  [ngSrc]="image.src"
-                  [alt]="image.alt"
-                  fill
-                  sizes="(max-width: 700px) 90vw, 45vw"
-                />
+                <app-project-image-carousel [images]="[image]" [projectName]="project.name" />
               } @else {
                 <div class="project-lettering" aria-hidden="true">
                   <span class="cover-index">Proyecto / {{ index + 1 }}</span>
