@@ -202,11 +202,23 @@ export const projects: readonly Project[] = [
   {
     id: 'solofinanzas',
     name: 'SoloFinanzas',
-    context: 'Proyecto personal · En desarrollo',
+    images: [
+      {
+        src: '/images/solofinanzas-home.png',
+        alt: 'Página de inicio de SoloFinanzas con presentación y acceso mediante Google',
+      },
+      {
+        src: '/images/solofinanzas-preview.png',
+        alt: 'Vista previa de SoloFinanzas con balance, ingresos y gastos de ejemplo',
+      },
+    ],
+    context: 'Proyecto personal · Beta publicada',
     description:
-      'Aplicación de uso personal para organizar cuentas, movimientos y cartolas bancarias. Implementé la importación de cartolas, la normalización y categorización de transacciones y la detección de transferencias entre cuentas. La conexión bancaria automática y las funciones de inteligencia artificial son ideas futuras.',
-    technologies: ['React', 'Python', 'FastAPI', 'SQLite'],
+      'Aplicación de finanzas personales para centralizar cuentas y movimientos de bancos y billeteras digitales en Chile. Implementé la importación de cartolas PDF con vista previa, categorización por reglas, detección de transferencias entre cuentas propias y paneles de ingresos y gastos. Preparé una beta multiusuario con acceso mediante Google, Supabase Auth y PostgreSQL.',
+    technologies: ['React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL', 'Apache ECharts'],
     codeUrl: 'https://github.com/CristianIgnacio/SoloFinanzas',
+    demoUrl: 'https://solofinanzas.vercel.app/',
+    demoLabel: 'Ver sitio',
   },
   {
     id: 'pulpullen',

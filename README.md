@@ -110,6 +110,21 @@ npm run build
 
 Los archivos se generan en `dist/cristian-portfolio/`.
 
+## Vercel Web Analytics
+
+El proyecto integra `@vercel/analytics` desde `src/main.ts`, una vez que Angular
+termina de iniciar. Usa el modo de desarrollo de Angular para evitar enviar las
+visitas locales de `npm start`; los builds de producción registran las visitas.
+
+Para recibir datos en Vercel:
+
+1. Abre el proyecto en el panel de Vercel y activa **Analytics → Enable**.
+2. Despliega una nueva versión con estos cambios después de activar Analytics.
+3. Visita el sitio desplegado y consulta las métricas en **Analytics**.
+
+No se necesitan claves ni variables de entorno para esta integración.
+Consulta la [guía oficial de Vercel Web Analytics](https://vercel.com/docs/analytics/quickstart).
+
 ## Pruebas
 
 ```bash
